@@ -1,0 +1,9 @@
+https://leetcode.com/problems/goal-parser-interpretation/submissions/
+
+class Solution {
+    public String interpret(String command) {
+        String replacements = command.replace("()", "o");
+        String ans = replacements.replace("(al)", "al");
+        return ans;
+    }
+}
