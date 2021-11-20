@@ -1,0 +1,24 @@
+//https://leetcode.com/problems/camelcase-matching/
+
+class Solution {
+    public List<Boolean> camelMatch(String[] queries, String pattern) {
+        List<Boolean> ans = new ArrayList<>();
+        for(String ss: queries){
+            ans.add(match(ss, pattern));
+        }
+        return ans;
+    }
+    
+    public Boolean match(String query, String pattern){
+        int j = 0; /*var to check presence of pattern chars in queries*/
+        for(int i = 0 ; i < query.length() ; i++){
+            if(j < pattern.length() && query.charAt(i) == pattern.charAt(j)){
+                j++;  //If a pattern char is present, J++ and check again
+            }
+            else if(Character.isUpperCase(query.charAt(i))){ /*if query has more capotal letters than in pattern*/
+                return false;
+            }
+        }
+        return j == pattern.length();  //true only if all pattern chars are present in query
+    }
+}

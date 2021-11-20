@@ -1,0 +1,29 @@
+//https://leetcode.com/problems/print-words-vertically/
+
+class Solution {
+    public List<String> printVertically(String s) {
+        List<String> res = new ArrayList<>();
+        String[] str = s.split(" ");  //Made string into array of words
+        int maxLength = 0;  //it'll dentone the lentgth og longest word
+        
+        for(String ss: str){
+            maxLength = Math.max(ss.length(), maxLength);
+        }
+        
+        for(int i = 0 ; i < maxLength ; i++){
+            String curr = ""; //our answer
+            int lastCharIndex = 0;
+            for(String ss: str){ //This loop will go through str array
+                if(i >= ss.length()){ //if length of word is less than the max length of word
+                    curr+= " "; //just add a space in answer
+                }
+                else{
+                    curr+=ss.charAt(i); //else add the char at i of each word
+                    lastCharIndex = curr.length();
+                }
+            }
+            res.add(curr.substring(0, lastCharIndex)); //add ans substring to res
+        }
+        return res;
+    }
+}
