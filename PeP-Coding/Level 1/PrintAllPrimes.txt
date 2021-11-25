@@ -15,8 +15,10 @@ public class Main{
              }
 
              if(isPrime){
-                 System.out.println(x);
+                 System.out.println(x); 
              }
         }
     }
 }
+
+//Rajat Verma
