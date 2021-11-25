@@ -1,0 +1,22 @@
+import java.util.*
+
+public class Main{
+    public static void main(Strings[] args){
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt;
+
+        for(int x = 2 ; x <= n ; x++){
+             boolean isPrime = true;
+             for(int i = 2 ; i*i <= x ; i++){
+                  if(x%i == 0){
+                      isPrime = false;
+                      break;
+                  }
+             }
+
+             if(isPrime){
+                 System.out.println(x);
+             }
+        }
+    }
+}
