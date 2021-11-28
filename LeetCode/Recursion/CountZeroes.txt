@@ -1,0 +1,22 @@
+package com.company;
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+        System.out.println(fun(100240, 0));
+    }
+
+    static int fun(int n, int c){
+        if(n==0){
+            return c;
+        }
+
+        int rem = n%10;
+        if(rem==0){
+            return fun(n/10, c+1);
+        }
+        else{
+            return fun(n/10, c);
+        }
+    }
+}
