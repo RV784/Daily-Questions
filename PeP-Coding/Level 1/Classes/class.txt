@@ -1,0 +1,38 @@
+package com.company;
+import java.util.*;
+
+public class Main{
+
+    private static class Person{
+        String name;
+        int age;
+
+        void sayHi(){
+            if(this.age > 20){
+                System.out.println("hello World Rajat" + " " + this.name);
+            }
+            else{
+                System.out.println("Hello world not Rajat" + " " + this.name);
+            }
+        }
+    }
+
+
+    public static void main(String[] args){
+        Person p1; //just a reference
+        p1 = new Person(); //Instance (object)  created
+        p1.age = 25;
+        p1.sayHi();
+
+        Person p2;
+        p2 = new Person();
+        p2.age = 18;
+        p2.sayHi();
+
+        Person p3 = p2; //now p3 and p2 point to same address
+        p3.name = "Rajjo"; //it'll also change p2;
+        p3.age = 22; //same change to p2;
+        p3.sayHi();
+        p2.sayHi();
+    }
+}
