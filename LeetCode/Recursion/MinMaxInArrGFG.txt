@@ -1,0 +1,39 @@
+//https://www.geeksforgeeks.org/recursive-programs-to-find-minimum-and-maximum-elements-of-array/
+
+package com.company;
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i = 1 ; i < 6 ; i++){
+            list.add(i*2);
+        }
+        MinMax(list);
+        System.out.println(list);
+    }
+
+    static void MinMax(ArrayList<Integer> list){
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        helper(list, min, max, 0);
+        //System.out.println(min + " " + max);
+    }
+
+    static void helper(ArrayList<Integer> list, int min, int max, int index){
+
+        if(index == list.size())
+        {
+            System.out.println(min + " " + max);
+            return;
+        }
+
+         min = Math.min(min, list.get(index));
+         max = Math.max(max, list.get(index));
+
+         helper(list, min, max, index+1);
+    }
+
+
+}
