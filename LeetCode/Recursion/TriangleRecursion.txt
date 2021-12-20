@@ -1,0 +1,22 @@
+package com.company;
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+
+    }
+
+    static void Triangle(int r, int c){
+        if(r == 0){
+            return;
+        }
+
+        if(c < r){
+            System.out.print("* ");
+            Triangle(r, c+1);
+        }else{
+            System.out.println();
+            Triangle(r-1, 0);
+        }
+    }
+}
