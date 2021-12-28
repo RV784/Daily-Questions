@@ -1,0 +1,20 @@
+package com.company;
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+
+    }
+
+    static String skipApple(String up){
+        if(up.isEmpty()){
+            return "";
+        }
+
+        if(up.startsWith("Apple")){
+            return skipApple(up.substring(5));
+        }else{
+            return up.charAt(0) + skipApple(up.substring(1));
+        }
+    }
+}

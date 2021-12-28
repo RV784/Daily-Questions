@@ -1,0 +1,38 @@
+package com.company;
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+
+    }
+
+    static void skipChar(String p, String up){
+        //base condition
+        if(up.isEmpty()){
+            System.out.println(p);
+            return;
+        }
+
+        char ch = up.charAt(0);
+
+        if(chh == 'a'){
+            skipChar(p,  up.substring(1));
+        }else{
+            skipChar(p+ch, up.substring(1));
+        }
+    }
+
+    static String skip2(String up){
+        if(up.isEmpty()){
+            return "";
+        }
+
+        char ch = up.charAt(0);
+
+        if(ch == 'a'){
+            return skip2(up.substring(1));
+        }else{
+            return ch + skip2(up.substring(1));
+        }
+    }
+}
