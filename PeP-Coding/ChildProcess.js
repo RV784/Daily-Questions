@@ -7,3 +7,5 @@ cp.execSync("start chrome Apple.com"); //open anywebsite in chrome
 
 let output = cp.execSync("node abc.js");
 console.log(" output is " + output);
+
+
