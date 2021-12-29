@@ -1,17 +1,38 @@
 (function(){
     let btn = document.querySelector("#myFirstButton");
-    let h1 = document.querySelector("h1");
+    let divContainer = document.querySelector("#container");
+    let myTemplates = document.querySelector("#myTemplates");
 
     btn.addEventListener("click", function(){
-       h1.style.color = "green";
-    });
-    
-    btn.addEventListener("mouseover", function(){
-        h1.style.color = "blue";
-     });
+        let fname = prompt("enter a folder's name");
+        if(fname == null){
+            return;
+        }
 
-     btn.addEventListener("mouseout", function(){
-        h1.style.color = "red";
-     });
+        let divFolderTemplate = myTemplates.content.querySelector(".folder");
+        let divFolder = document.importNode(divFolderTemplate, true);
+
+        divFolder.innerHTML = fname;
+        divContainer.appendChild(divFolder);
+    })
 
 })();
+
+// (function(){
+//     let btn = document.querySelector("#myFirstButton");
+//     let divContainer = document.querySelector("#container");
+//     let myTemplates = document.querySelector("#myTemplates");
+
+//     btn.addEventListener("click", function(){
+//         let fname = prompt("Enter a folder's name");
+        
+//         let divFolderTemplate = myTemplates.content.querySelector(".folder");
+//         let divFolder = document.importNode(divFolderTemplate, true);
+
+//         divFolder.innerHTML = fname;
+//         divContainer.appendChild(divFolder);
+
+        
+//     })
+
+// })();
