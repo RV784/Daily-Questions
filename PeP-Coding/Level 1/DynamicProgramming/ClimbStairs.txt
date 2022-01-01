@@ -1,0 +1,70 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        // write your code here
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+       // int ans = sol1(n);
+       //  int ans = sol2(n, new int[n+1]);
+
+        int ans = sol3(n);
+        System.out.println(ans);
+    }
+    
+
+    //recursive solution
+    public static int sol1(int n){
+        //base consitions
+        if(n == 0){
+            return 1;
+        }else if(n < 0){
+            return 0;
+        }
+
+        int p1 = sol1(n-1);
+        int p2 = sol1(n-2);
+        int p3 = sol1(n-3);
+
+        return p1 + p2 + p3;
+    }
+    
+    //Memoization solution
+    public static int sol2(int n, int[] qb){
+        //base consition1
+        if(n == 0){
+            return 1;
+        }else if(n < 0){
+            return 0;
+        }
+
+        //base condition2
+        if(qb[n] != 0){
+            return qb[n];
+        }
+
+        int p1 = sol2(n-1, qb);
+        int p2 = sol2(n-2, qb);
+        int p3 = sol2(n-3, qb);
+
+        return p1 + p2 + p3;
+    }
+
+    //tabulation solution (top-Down) //no recursion
+    public static int sol3(int n){
+       int[] dp = new int[n+1];
+       dp[0] = 1;
+       for(int i = 1 ; i < n+1 ; i++){
+           if(i == 1){
+               dp[i] = dp[i-1];
+           }else if(i == 2){
+               dp[i] = dp[i-1] + dp[i-2];
+           }else{
+               dp[i] = dp[i-1] + dp[i-2] + dp[i-3];
+           }
+       }
+       return dp[n];
+    }
+}

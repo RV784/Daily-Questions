@@ -1,0 +1,30 @@
+import java.io.*;
+import java.util.*;
+
+public class Main{
+
+public static void main(String[] args) throws Exception {
+    // write your code here
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    int[] arr = new int[n+1];
+    int ans = fibnMemo(n, arr);
+    System.out.println(ans);
+ }
+
+ public static int fibnMemo(int n, int[] qBank){
+     //base condition1
+     if(n == 0 || n == 1)
+     return n;
+
+     if(qBank[n] != 0){
+        return qBank[n];
+     }
+
+     int fb1 = fibnMemo(n-1, qBank);
+     int fb2 = fibnMemo(n-2, qBank);
+     
+     return fb1 + fb2;
+ }
+
+}
