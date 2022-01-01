@@ -1,64 +1,84 @@
-(function(){
+(function(){ //iffy
     let btnAddFolder = document.querySelector("#btnAddFolder");
     let divContainer = document.querySelector("#divContainer");
     let pageTemplates = document.querySelector("#pageTemplates");
-    let fid = 0;
-    let folders = []; //this array will store all folder we create, so they would not be deleted when we refresh the page
+    let folders = [];
+    let fid = -1;
 
-    btnAddFolder.addEventListener("click", function(){
-        let fname = prompt("Folder name?");
-        if(fname == null){
-            return;
+    btnAddFolder.addEventListener("click", addFolder);
+
+    function addFolder(){
+       let fname = prompt("Enter a new folder name");
+       if(!!fname){
+           let fidx = folders.findIndex(f => f.name == fname);
+           if(fidx == -1){
+               fid++;
+               folders.push({
+                   id: fid,
+                   name: fname
+               });
+               addFolderHTML(fname, fid);
+               saveToStorage();
+           }else{
+               alert(fname + " already exists!");
+           }
+       }else{
+           alert("Please enter something");
+       }
+    }
+
+    function editFolder(){
+
+    }
+
+    function deleteFolder(){
+        let divFolder = this.parentNode;
+        let divName = divFolder.querySelector("[purpose = 'name']");
+
+        let flag = confirm("Are you sure you want to delete " + divName.innerHTML + " ?");
+        if(flag == true){
+            //ram 
+            let fidx = folders.findIndex(f => f.name == divName.innerHTML);
+            folders.splice(fidc, 1);
+
+            //html
+            divContainer.removeChild(divFolder);
+
+            //storage
+            saveToStorage();
         }
 
+    }
+
+    function addFolderHTML(fname, fid){
         let divFolderTemplate = pageTemplates.content.querySelector(".folder");
         let divFolder = document.importNode(divFolderTemplate, true);
 
-        let divName = divFolder.querySelector("[purpose='name']");
+        let divName = divFolder.querySelector("[purpose = 'name']");
+        let spanEdit = divFolder.querySelector("[action = 'edit']");
+        let spanDelete = divFolder.querySelector("[action = 'delete']");
+
+        divFolder.setAttribute("fid", fid);
         divName.innerHTML = fname;
-        divFolder.setAttribute("fid", ++fid); //every folder will have attribute fid with values
+        spanEdit.addEventListener("click", editFolder);
+        spanDelete.addEventListener("click", deleteFolder);
 
         divContainer.appendChild(divFolder);
+    }
 
-        let spanEdit = divFolder.querySelector("span[action='edit']");
-        spanEdit.addEventListener("click", function(){
-           let fname = prompt("Enter new folder name");
-           if(!fname){
-               return;
-           }
-
-           let divName = divFolder.querySelector("[purpose='name']");
-           divName.innerHTML = fname;
-
-           let folder = folders.find(f => f.id == parseInt(divFolder.getAttribute("fid")));
-           folder.name = fname;
-           persistFolders();
-        });
-
-        let spanDelete = divFolder.querySelector("span[action='delete']");
-        spanDelete.addEventListener("click", function(){
-           let flag = confirm("Do you want to delete this folder?" + divName.innerHTML);
-           if(flag == true){
-               divContainer.removeChild(divFolder);
-           }
-
-           let idx = folders.findIndex(f => f.id == parseInt(divFolder.getAttribute("fid")));
-           folders.splice(idx, 1);
-           persistFolders();
-        });
-
-        divContainer.appendChild(divFolder);
-        folders.push({
-            id: fid,
-            name: fname
-        });
-        persistFolders();
-
-    });
-
-    function persistFolders(){
-        console.log(folders);
+    function saveToStorage(){
         let fjson = JSON.stringify(folders);
         localStorage.setItem("data", fjson);
+
     }
+
+    function loadFromStorage(){
+        let fjson = localStorage.getItem("data");
+        if(!!fjson){
+            folders = JSON.parse(fjson);
+            folders.forEach(f => addFolderHTML(f.name, f.if));
+        }
+    }
+
+    loadFromStorage();
 })();
