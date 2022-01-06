@@ -1,0 +1,43 @@
+//https://nados.io/content/3ac31098-0fcc-4418-972c-843d81241795/feea23f3-0b47-47a1-af6c-b4e07199d7c9/d3da3c36-450f-40eb-9b1f-966df2ebfff2/question/b9efd9b5-0c4b-4a0f-a3cb-68def0244e4c
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        // write your code here
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0 ; i < n ; i++)
+           arr[i] = scn.nextInt();
+
+        int ans = minJumps(arr);
+        System.out.println(ans);  
+    }
+
+    static int minJumps(int[] arr){
+        Integer dp[] = new Integer[arr.length + 1];
+
+        dp[arr.length] = 0;
+
+        for(int i = arr.length - 1 ; i >= 0 ; i--){
+            int ran = Integer.MAX_VALUE;
+            if(arr[i] > 0){
+                for(int j = 1 ; j <= arr[i] && i+j < dp.length ; j++){
+                    if(dp[i+j] != null)
+                    ran = Math.min(ran, dp[i+j]);
+                }
+
+                if(ran != Integer.MAX_VALUE){
+                    dp[i] = ran+1;
+                }else{
+                    dp[i] = null;
+                }
+            }
+        }
+        return dp[0];
+    }
+
+}
