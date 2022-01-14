@@ -1,50 +1,163 @@
 package com.company;
 import java.util.*;
+import java.io.*;
 
 public class Main{
 
-    private static class Node{
+    public static class Node{
         int data;
-        ArrayList<Node> children = new ArrayList<>();
+        Node left;
+        Node right;
+
+
     }
+
+    public static class Pair{
+        Node node;
+        int state;
+    }
+
+//    public static Node construct(Integer[] arr){
+//        Stack<Pair> stack = new Stack<>();
+//
+//        Node root = new Node();
+//        root.data = arr[0];
+//
+//        Pair rootp = new Pair();
+//        rootp.node = root;
+//        rootp.state = 1;
+//
+//        stack.push(rootp);
+//        int idx = 1;
+//
+//        while(stack.size() > 0){
+//            Pair peekp = stack.peek();
+//
+//            if(peekp.state == 1){
+//                //left
+//                if(arr[idx] != null){
+//                    Node lc = new Node();
+//                    peekp.node.left = lc;
+//
+//                    Pair lp = new Pair();
+//                    lp.node = lc;
+//                    lp.state = 1;
+//
+//                    stack.push(lp);
+//                }
+//
+//                peekp.state++;
+//                idx++;
+//            }else if(peekp.state == 2){
+//                //right
+//                if(arr[idx] != null){
+//                    Node rc = new Node();
+//                    peekp.node.right = rc;
+//
+//                    Pair rp = new Pair();
+//                    rp.node = rc;
+//                    rp.state = 1;
+//
+//                    stack.push(rp);
+//                }
+//
+//                peekp.state++;
+//                idx++;
+//            }else{
+//                //pop
+//                stack.pop();
+//            }
+//        }
+//
+//        return root;
+//    }
+public static Node construct(Integer[] arr){
+    Stack<Pair> stack = new Stack<>();
+
+    Node root = new Node();
+    root.data = arr[0];
+
+    Pair rootp = new Pair();
+    rootp.node = root;
+    rootp.state = 1;
+
+    stack.push(rootp);
+    int idx = 1;
+
+    while(stack.size() > 0){
+        Pair peekp = stack.peek();
+
+        if(peekp.state == 1){
+            // left
+            if(arr[idx] != null){
+                Node lc = new Node();
+                lc.data = arr[idx];
+                peekp.node.left = lc;
+
+                Pair lp = new Pair();
+                lp.node = lc;
+                lp.state = 1;
+
+                stack.push(lp);
+            }
+            peekp.state++;
+            idx++;
+        } else if(peekp.state == 2){
+            // right
+            if(arr[idx] != null){
+                Node rc = new Node();
+                rc.data = arr[idx];
+                peekp.node.right = rc;
+
+                Pair rp = new Pair();
+                rp.node = rc;
+                rp.state = 1;
+
+                stack.push(rp);
+            }
+            peekp.state++;
+            idx++;
+        } else if(peekp.state == 3){
+            // pop
+            stack.pop();
+        }
+    }
+
+    return root;
+}
 
     public static void display(Node node){
-        String str = node.data + "-->";
-
-        for(Node child: node.children){
-            str+= child.data + ", ";
+        if(node == null){
+            return; //base condition
         }
-        str += ".";
-        System.out.println(str);
 
-        for(Node child: node.children){
-            display(child);
-        }
+        String str = " <- " + node.data + " -> ";
+        String lcstr = node.left == null? ".": node.left.data + "";
+        String rcstr = node.right == null? ".": node.right.data + "";
+        System.out.println(lcstr + str + rcstr);
+
+        display(node.left); // will print the entire left tree
+        display(node.right); // will print the entire right tree
     }
 
 
-    public static void main(String[] args){
-        int[] arr = {}; //enter euler tree in this Array
-        Stack<Node> st = new Stack<>();
-        Node root = null;
 
-        for(int i = 0 ; i < arr.length ; i++){
-            if(arr[i] == -1){
-                st.pop();
-            }else{
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-                Node temp = new Node();
-                temp.data = arr[i];
-                if(st.size() > 0){
-                    root = temp;
-                }else{
-                    st.peek().children.add(temp);
-                }
-                st.push(temp);
+        int n = Integer.parseInt(br.readLine());
+        Integer[] arr = new Integer[n];
+
+        String[] values = br.readLine().split(" ");
+        for (int i = 0; i < n; i++) {
+            if (values[i].equals("n") == false) {
+                arr[i] = Integer.parseInt(values[i]);
+            } else {
+                arr[i] = null;
             }
         }
-        
-        display(root);
 
+        Node root = construct(arr);
+        display(root);
     }
 }
