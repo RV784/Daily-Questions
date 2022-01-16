@@ -37,6 +37,7 @@ public class Main{
 //                //left
 //                if(arr[idx] != null){
 //                    Node lc = new Node();
+//                    lc.data = arr[idx];
 //                    peekp.node.left = lc;
 //
 //                    Pair lp = new Pair();
@@ -52,6 +53,7 @@ public class Main{
 //                //right
 //                if(arr[idx] != null){
 //                    Node rc = new Node();
+//                    rc.data = arr[idx];
 //                    peekp.node.right = rc;
 //
 //                    Pair rp = new Pair();
