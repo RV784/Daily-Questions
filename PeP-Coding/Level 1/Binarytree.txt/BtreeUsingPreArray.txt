@@ -1,0 +1,31 @@
+public static Node treeConstructWithPreOrder(int[] arr){   //given array contains preOrder of a tree
+    Node rootp = new Node(arr[0], null, null);
+    Pair p = new Pair(rootp, 1);
+    Stack<Pair> st = new Stack;
+    st.push(p);
+    
+    int count = 1;
+    while(st.size() > 0 && count < arr.length){
+      Pair peekp = st.peek();
+
+      if(peekp.state == 1){
+        peekp.state++;
+        Node temp = new Node(arr[count], null, null);
+        peekp.node.left = temp;
+        st.push(temp, 1);
+        count++;
+
+      }else if(peekp.state == 2){
+        peekp.state++;
+        Node temp = new Node(arr[count], null, null);
+        peekp.node.right = temp;
+        st.push(temp, 1);
+        count++;
+        
+      }else{
+        st.pop();
+      }
+    }
+
+    return rootp;
+  }
