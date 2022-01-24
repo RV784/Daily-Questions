@@ -1,0 +1,42 @@
+//https://nados.io/question/get-subsequence
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        String str = scn.next();
+        ArrayList<String> ans = gss(str);
+        System.out.println(ans);
+    }
+
+    public static ArrayList<String> gss(String str) {
+
+        if(str.length() == 0){
+            ArrayList<String> bres = new ArrayList<>();
+            bres.add("");
+            return bres;
+        }
+
+        char a = str.charAt(0);
+        String sstr = str.substring(1);
+
+        ArrayList<String> ans1 = gss(sstr);
+
+        ArrayList<String> finalAns = new ArrayList<>();
+        for(String rstr: ans1){
+            finalAns.add("" + rstr);
+           // finalAns.add(a + rstr);
+        }
+
+        for(String rstr: ans1){
+          //  finalAns.add("" + rstr);
+            finalAns.add(a + rstr);
+        }
+
+        return finalAns;
+    }
+
+}

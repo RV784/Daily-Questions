@@ -1,0 +1,53 @@
+//https://nados.io/question/get-stair-paths
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        ArrayList<String> ans = getStairPaths(n);
+        System.out.println(ans);
+
+    }
+
+    public static ArrayList<String> getStairPaths(int n) {
+
+        if(n == 0){
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }else if(n < 0){
+            return new ArrayList<String>();
+        }
+
+        
+            ArrayList<String> ans1 = getStairPaths(n-1);
+        
+        
+            ArrayList<String> ans2 = getStairPaths(n-2);
+        
+        
+            ArrayList<String> ans3 = getStairPaths(n-3);
+        
+        
+        ArrayList<String> finalAns = new ArrayList<>();
+
+        for(String res: ans1){
+            finalAns.add(1 + res);
+        }
+        for(String res: ans2){
+            finalAns.add(2 + res);
+        }
+        for(String res: ans3){
+            finalAns.add(3 + res);
+        }
+
+
+        return finalAns;
+    }
+
+}

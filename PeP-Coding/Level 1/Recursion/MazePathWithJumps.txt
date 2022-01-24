@@ -1,0 +1,59 @@
+//https://nados.io/question/get-maze-path-with-jumps
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n1 = scn.nextInt();
+        int n2 = scn.nextInt();
+        ArrayList<String> ans = getMazePaths(1, 1, n1, n2);
+        System.out.println(ans);
+
+    }
+
+    // sr - source row
+    // sc - source column
+    // dr - destination row
+    // dc - destination column
+    public static ArrayList<String> getMazePaths(int sr, int sc, int dr, int dc) {
+        if(sr == dr && sc == dc){
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
+        ArrayList<String> ans = new ArrayList<>();
+
+        //horizontally
+        for(int hs = 1 ; hs <= dc-sc ; hs++){
+            ArrayList<String> hpaths = getMazePaths(sr, sc + hs, dr, dc);
+            
+            for(String res: hpaths){
+                ans.add("h" + hs + res);
+            }
+        }
+
+        //vertically
+        for(int vs = 1 ; vs <= dr-sr ; vs++){
+            ArrayList<String> vpaths = getMazePaths(sr + vs, sc, dr, dc);
+            
+            for(String res: vpaths){
+                ans.add("v" + vs + res);
+            }
+        }
+
+        //diagnal
+        for(int ds = 1 ; ds <= dr-sr && ds <= dc - sc ; ds++){
+            ArrayList<String> dpaths = getMazePaths(sr + ds, sc + ds, dr, dc);
+            
+            for(String res: dpaths){
+                ans.add("d" + ds + res);
+            }
+        }
+
+        return ans;
+    }
+
+}

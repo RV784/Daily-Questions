@@ -1,0 +1,44 @@
+//https://nados.io/question/get-kpc
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        String str = scn.next();
+        ArrayList<String> ans = getKPC(str);
+        System.out.println(ans);
+    }
+
+    static String[] codes = {".;", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tu", "vwx", "yz"};
+
+    public static ArrayList<String> getKPC(String str) {
+        
+        if(str.length() == 0){
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
+       
+        //input 678
+        char ch = str.charAt(0); //6
+        String sbstr = str.substring(1); //78
+        ArrayList<String> firstAns = getKPC(sbstr);  //ans for words possible with 78
+
+        ArrayList<String> finalAns = new ArrayList<>();
+
+        String codesFor = codes[ch - '0'];
+        for(int i = 0 ; i < codesFor.length() ; i++){ //attatching 6's words with 78's answer
+           char a = codesFor.charAt(i);
+
+           for(String res: firstAns){
+               finalAns.add(a + res);
+           }
+        }
+
+        return finalAns;
+    }
+
+}
