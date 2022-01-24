@@ -1,0 +1,40 @@
+//https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        
+        if(digits.length() == 0){
+            List<String> base = new ArrayList<>();
+            //base.add("");
+            return base;
+        }
+        return getKPC(digits);
+    }
+    
+    static String[] keys = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    
+    public static List<String> getKPC(String str){
+        if(str.length() == 0){
+            List<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
+        
+        char ch = str.charAt(0);
+        String sbstr = str.substring(1);
+        
+        List<String> ans = getKPC(sbstr);
+        List<String> finalAns = new ArrayList<>();
+        
+        String codeAt = keys[ch - '0'];
+        for(int i = 0 ; i < codeAt.length() ; i++){
+            char a = codeAt.charAt(i);
+            
+            for(String res: ans){
+                finalAns.add(a + res);
+            }
+        }
+        
+        return finalAns;
+    }
+}
