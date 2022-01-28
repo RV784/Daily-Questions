@@ -1,0 +1,44 @@
+//https://nados.io/question/get-common-elements-1
+
+import java.io.*;
+import java.util.*;
+
+public class Main{
+
+public static void main(String[] args) throws Exception {
+    // write your code here
+    Scanner scn = new Scanner(System.in);
+    int n1 = scn.nextInt();
+    Integer[] arr1 = new Integer[n1];
+    for(int i = 0 ; i < n1 ; i++)
+      arr1[i] = scn.nextInt();
+
+    int n2 = scn.nextInt();
+    Integer[] arr2 = new Integer[n2];
+    for(int i = 0 ; i < n2 ; i++)
+      arr2[i] = scn.nextInt();
+      
+
+    HashMap<Integer, Integer> freq = new HashMap<>();
+    for(int i = 0 ; i < n1 ; i++){
+        if(freq.containsKey(arr1[i]) == true){
+            continue;
+        }else{
+            freq.put(arr1[i], 1);
+        }
+    }
+    for(int i = 0 ; i < n2 ; i++){
+        if(freq.containsKey(arr2[i]) == true){
+            freq.put(arr2[i], freq.get(arr2[i]) + 1);
+            if(freq.get(arr2[i]) > 2){
+                continue;
+            }else if(freq.get(arr2[i]) == 2){
+                System.out.println(arr2[i]);
+            }
+        }else{
+            continue;
+        }
+    }
+ }
+
+}

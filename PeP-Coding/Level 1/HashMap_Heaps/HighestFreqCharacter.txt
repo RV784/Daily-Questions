@@ -1,0 +1,35 @@
+//https://nados.io/question/highest-frequency-character
+
+//approach 1, mine
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        // write your code here
+        Scanner scn = new Scanner(System.in);
+        String str = scn.next();
+        HashMap<Character, Integer> ans = new HashMap<>();
+        for(int i = 0 ; i < str.length() ; i++){
+            if(ans.containsKey(str.charAt(i)) == true){
+                Integer val = ans.get(str.charAt(i));
+                val++;
+                ans.put(str.charAt(i), val);
+            }else{
+                ans.put(str.charAt(i), 1);
+            }
+        }
+        Integer max = Integer.MIN_VALUE;
+        char ansch = '.';
+        Set<Character> keys = ans.keySet();
+        for(char ch: keys){
+            if(ans.get(ch) > max){
+                ansch = ch;
+                max = ans.get(ch);
+            }
+        }
+        System.out.println(ansch);
+    }
+
+}
