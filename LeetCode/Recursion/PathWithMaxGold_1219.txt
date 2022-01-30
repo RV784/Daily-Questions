@@ -1,0 +1,58 @@
+//https://leetcode.com/problems/path-with-maximum-gold/
+
+//This questions is very similar to maze path with top/down/left/right movements.
+class Solution {
+    int ans = 0; //this will make ans variable availabe to all functions below
+    public int getMaximumGold(int[][] grid) {
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        //Here instead of starting all our paths from 0,0 cell, we are allowed to start 
+        //fresh paths from all vertices except the ones which are valued 0.
+        //so we applied helper function to all those vertices.
+        for(int i = 0 ; i < grid.length ; i++){   
+            for(int j = 0 ; j < grid[0].length ; j++){
+                if(grid[i][j] != 0){
+                    solution(0, i, j, visited, grid);
+                }
+            }
+        }
+        return ans;
+    }
+    
+    private void solution(int tempAns, int row, int col, boolean[][] visited, int[][] grid){
+        
+        //base
+        if(row < 0 || col < 0 || row == grid.length || col == grid[0].length || visited[row][col] == true || grid[row][col] == 0){
+            return;
+        }
+        
+        
+        
+        tempAns += grid[row][col]; //Adding value of grid[row][col] when tracing the path for the first time
+        visited[row][col] = true; //visisted matrix will help us not revisite a already visited cell
+        
+        //top
+        solution(tempAns, row - 1, col, visited, grid);
+        
+        //left
+        solution(tempAns, row, col - 1, visited, grid);
+        
+        //down
+        solution(tempAns, row + 1, col, visited, grid);
+        
+        //right
+        solution(tempAns, row, col + 1, visited, grid);
+        
+        //Important
+        //we placed this check before we are "subtracting the values of columns that we are leaving", but why ?
+        //ans - Because when we start backtracking, we'll immediately be reducing the value of tempAns by the current grid[row][col].
+        //you can place it after line 52 to see that the final value in the answer gets ignored.
+        if(tempAns > ans){  
+            ans = tempAns;
+        }
+        
+        visited[row][col] = false; //while backtracking, marking cells false which we are leaving
+        tempAns -= grid[row][col]; //subtracting the values of columns that we are leaving 
+        
+        
+    }
+}

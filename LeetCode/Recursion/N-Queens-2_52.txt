@@ -1,0 +1,58 @@
+//https://leetcode.com/problems/n-queens-ii/
+
+class Solution {
+    public int totalNQueens(int n) {
+        return helper(n, 0, new boolean[n][n]);
+    }
+    
+    public int helper(int n, int row, boolean[][] visited){
+        //base 
+        if(row == n){
+            return 1;
+        }
+        
+        //algo
+        int ans = 0;
+        for(int i = 0 ; i < n ; i++){
+            if(isSafe(n, i, row, visited)){
+                visited[row][i] = true;
+                ans += helper(n, row + 1, visited);
+                visited[row][i] = false;
+            }
+        }
+        return ans;
+    }
+    
+    public boolean isSafe(int n, int col, int row, boolean[][] visited){
+        
+        //vertically up
+        for(int i = 0 ; i < row ; i++){
+            if(visited[i][col]){
+                return false;
+            }
+        }
+        
+        //left diagnol
+        int i = row;
+        int j = col;
+        while(i >= 0 && j >= 0){
+            if(visited[i][j]){
+                return false;
+            }
+            i--;
+            j--;
+        }
+        
+        //right diagnol
+        i = row;
+        j = col;
+        while(i >= 0 && j < n){
+            if(visited[i][j]){
+                return false;
+            }
+            i--;
+            j++;
+        }
+        return true;
+    }
+}
