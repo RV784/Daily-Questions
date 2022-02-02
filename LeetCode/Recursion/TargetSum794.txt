@@ -1,0 +1,23 @@
+//https://leetcode.com/problems/target-sum/submissions/
+
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        return answer(nums, target, 0, 0, 0);
+    }
+    
+    public int answer(int[] nums, int target, int sum, int i, int count){
+        if(i == nums.length){
+            if(sum == target)
+                count++;
+            
+            return count;
+        }
+        
+        
+        //algo
+        int a1 = answer(nums, target, sum + nums[i], i+1, count);
+        int a2 = answer(nums, target, sum - nums[i], i+1, count);
+        
+        return a1 + a2;
+    }
+}
