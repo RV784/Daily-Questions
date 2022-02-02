@@ -1,0 +1,107 @@
+//https://leetcode.com/problems/game-of-life/
+
+class Solution {
+    public void gameOfLife(int[][] board) {
+        int m = board.length;
+        int n = board[0].length;
+        
+        int[][] copy = new int[m][n];
+        for(int i = 0 ; i < m ; i++){
+            for(int j = 0 ; j < n ; j++){
+                copy[i][j] = board[i][j];
+            }
+        }
+        
+        for(int i = 0 ; i < m ; i++){
+            for(int j = 0 ; j < n ; j++){
+                int liAround = 0;
+                int deadAround = 0;
+                int cstate = board[i][j];
+                //left
+                if(j > 0){
+                    if(copy[i][j-1] == 1){
+                        liAround++;
+                    }else{
+                        deadAround++;
+                    }
+                }
+                
+                //right
+                if(j < n-1){
+                    if(copy[i][j+1] == 1){
+                        liAround++;
+                    }else{
+                        deadAround++;
+                    }
+                }
+                
+                //top
+                if(i > 0){
+                    if(copy[i - 1][j] == 1){
+                        liAround++;
+                    }else{
+                        deadAround++;
+                    }
+                }
+                
+                //down
+                if(i < m - 1){
+                    if(copy[i + 1][j] == 1){
+                        liAround++;
+                    }else{
+                        deadAround++;
+                    }
+                }
+                
+                //dtl
+                if(i > 0 && j > 0){
+                    if(copy[i - 1][j - 1] == 1){
+                        liAround++;
+                    }else{
+                        deadAround++;
+                    }
+                }
+                
+                //dtr
+                if(i > 0 && j < n - 1){
+                    if(copy[i - 1][j + 1] == 1){
+                        liAround++;
+                    }else{
+                        deadAround++;
+                    }
+                }
+                
+                //dbl
+                if(i < m - 1 && j > 0){
+                    if(copy[i + 1][j - 1] == 1){
+                        liAround++;
+                    }else{
+                        deadAround++;
+                    }
+                }
+                
+                //dbr
+                if(i < m - 1 && j < n - 1){
+                    if(copy[i + 1][j + 1] == 1){
+                        liAround++;
+                    }else{
+                        deadAround++;
+                    }
+                }
+                
+                //live
+                if(liAround < 2){
+                    board[i][j] = 0;
+                }else if((liAround == 3 || liAround == 2) && board[i][j] == 1){
+                    continue;
+                }else if(liAround > 3){
+                    board[i][j] = 0;
+                }
+                
+                if(liAround == 3){
+                    board[i][j] = 1;
+                }
+            }
+        }
+    }
+}
