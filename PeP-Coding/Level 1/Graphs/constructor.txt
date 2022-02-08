@@ -1,0 +1,42 @@
+package com.company;
+
+import java.util.ArrayList;
+
+public class Graphs {
+
+    public static class Edge{
+        int src;
+        int nbr;
+        int wt;
+
+        Edge(int src, int nbr, int wt){
+            this.src = src;
+            this.nbr = nbr;
+            this.wt = wt;
+        }
+    }
+
+    public static void main(String[] args) {
+        int vces = 5;
+        ArrayList<Edge>[] graph = new ArrayList[5];
+        for(int i = 0 ; i < vces ; i++){
+            graph[i] = new ArrayList<Edge>();
+        }
+        graph[0].add(new Edge(0, 3, 40));
+        graph[0].add(new Edge(0, 3, 10));
+
+        graph[1].add(new Edge(1, 0, 10));
+        graph[1].add(new Edge(1, 2, 10));
+
+        graph[2].add(new Edge(2, 3, 10));
+        graph[2].add(new Edge(2, 1, 10));
+
+        graph[3].add(new Edge(3, 0, 40));
+        graph[3].add(new Edge(3, 2, 10));
+        graph[3].add(new Edge(3, 4, 2));
+
+        graph[4].add(new Edge(3, 0, 40));
+        graph[4].add(new Edge(3, 2, 10));
+        graph[4].add(new Edge(3, 4, 2));
+    }
+}
