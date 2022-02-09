@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Mojak",
+        "Last Name": "Sharma",
+        "isFunny": true,
+        "friends": [
+            "Jindal",
+            "Mohak",
+            "Ramit"
+        ],
+        "age": 22,
+        "address": {
+            "city": "Delhi",
+            "landMark": "Chatrasal Stadium"
+        }
+    },
+    {
+        "name": "Rajat",
+        "Last Name": "Verma",
+        "isFunny": true,
+        "friends": [
+            "Jindal",
+            "Mohak",
+            "Ramit"
+        ],
+        "age": 22,
+        "address": {
+            "city": "Delhi",
+            "landMark": "Chatrasal Stadium"
+        }
+    },
+    {
+        "name": "Akash",
+        "Last Name": "Samal",
+        "isFunny": true,
+        "friends": [
+            "Jindal",
+            "Mohak",
+            "Ramit"
+        ],
+        "age": 22,
+        "address": {
+            "city": "Delhi",
+            "landMark": "Chatrasal Stadium"
+        }
+    },
+    {
+        "name": "Nidhi",
+        "Last Name": "Samal",
+        "isFunny": true,
+        "friends": [
+            "Jindal",
+            "Mohak",
+            "Ramit"
+        ],
+        "age": 22,
+        "address": {
+            "city": "Delhi",
+            "landMark": "Chatrasal Stadium"
+        }
+    }
+]
