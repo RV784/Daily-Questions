@@ -1,0 +1,29 @@
+//https://leetcode.com/problems/happy-number/
+
+class Solution {
+    public boolean isHappy(int n) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        while(true){
+            n = calculator(n);
+            if(n == 1){
+                return true;
+            }
+            
+            if(map.containsKey(n)){
+                return false;
+            }
+            
+            map.put(n, 1);
+        }
+    }
+    public int calculator(int n){
+        int ans = 0;
+        while(n > 0){
+            int x = n%10;
+            ans = ans + x*x;
+            n = n/10;
+        }
+        return ans;
+    }
+}
