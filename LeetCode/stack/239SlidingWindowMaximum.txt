@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/sliding-window-maximum/
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        // ArrayList<Integer> list = new ArrayList<>();
+        int[] ans = new int[nums.length - k + 1];
+        
+        //first write nge array
+        int[] nge = new int[nums.length];
+        Stack<Integer> st = new Stack<>();
+        nge[nums.length - 1] = nums.length;
+        st.push(nums.length - 1);
+        
+        for(int i = nums.length - 1 ; i >= 0 ; i--){
+            while(st.size() > 0 && nums[i] >= nums[st.peek()]){
+                st.pop();
+            }
+            
+            if(st.size() == 0){
+                nge[i] = nums.length;
+            }else{
+                nge[i] = st.peek();
+            }
+            
+            st.push(i);
+        }
+        
+        //now sliding window
+        int j = 0;
+        for(int i = 0 ; i <= nums.length - k ; i++){
+            if(j < i){
+                j = i;
+            }
+            
+            while(nge[j] < i + k){
+                j = nge[j];
+            }
+            
+            ans[i] = nums[j];
+        }
+        
+        return ans;
+    }
+}
