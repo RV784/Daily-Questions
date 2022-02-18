@@ -16,9 +16,9 @@
 // }
 
 //Arrays
-// they are objects deep down. thats why even if you declare const arr, methods like slics and split work
+// they are objects deep down. thats why even if you declare const arr, methods like slice and split work
 // let arr = [1,2,3,4,5];
-// arr.myprop = "hellp";   //arrays are basically objects
+// arr.myprop = "help";   //arrays are basically objects
 
 // arr.Print = function(){
 //     console.log("hello from array");
