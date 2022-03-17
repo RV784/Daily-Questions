@@ -1,0 +1,26 @@
+//https://leetcode.com/problems/maximum-product-subarray/
+
+class Solution {
+    public int maxProduct(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        for(int num : nums){
+            max = Math.max(max, num);
+        }
+        int res = max;
+        int currMin = 1;
+        int currMax = 1;
+        
+        for(int num : nums){
+            if(num == 0){
+                currMin = 1;
+                currMax = 1;
+                continue;
+            }
+            int temp = currMax;
+            currMax = Math.max(num*currMin, Math.max(num, currMax*num));
+            currMin = Math.min(num*currMin, Math.min(num, temp*num));
+            res = Math.max(currMax, Math.max(currMin, res));
+        }
+        return res;
+    }
+}
