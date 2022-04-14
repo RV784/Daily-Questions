@@ -1,0 +1,59 @@
+https://practice.geeksforgeeks.org/problems/maximum-profit4657/1#
+
+// { Driver Code Starts
+// Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    public static void main(String args[]) throws IOException {
+        BufferedReader in =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(in.readLine());
+        while (t-- > 0) {
+            int K = Integer.parseInt(in.readLine());
+            int N = Integer.parseInt(in.readLine());
+            String input_line[] = in.readLine().trim().split("\\s+");
+            int A[] = new int[N];
+            for (int i = 0; i < N; i++) A[i] = Integer.parseInt(input_line[i]);
+
+            Solution ob = new Solution();
+            System.out.println(ob.maxProfit(K, N, A));
+        }
+    }
+}
+// } Driver Code Ends
+
+
+// User function Template for Java
+
+class Solution {
+    static int maxProfit(int k, int n, int price[]) {
+        // code here
+        
+        int[][] dp = new int[k+1][n];
+        
+        //initialization
+        for(int i = 0 ; i <= k ; i++){
+            for(int j = 0 ; j < n ; j++){
+                if(i == 0 || j == 0){
+                    dp[i][j] = 0;
+                }
+            }
+        }
+        
+        for(int t = 1 ; t <= k ; t++){
+            for(int d = 1 ; d < n ; d++){
+                
+                dp[t][d] = dp[t][d-1];
+                
+                for(int pd = 0 ; pd < d ; pd++){
+                    dp[t][d] = Math.max(dp[t-1][pd] + price[d] - price[pd], dp[t][d]);
+                }
+            }
+        }
+        
+        return dp[k][n-1];
+    }
+}
