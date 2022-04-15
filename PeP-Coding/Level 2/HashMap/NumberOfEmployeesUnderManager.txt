@@ -1,0 +1,70 @@
+https://nados.io/question/number-of-employees-under-every-manager?zen=true
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args){
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    
+    //write your code here
+
+    HashMap<String, String> map = new HashMap<>();
+    for(int i = 0 ; i < n ; i++){
+      map.put(scn.next(), scn.next());
+    }
+
+    findCount(map);
+  }
+
+  static void findCount(HashMap<String, String> map){
+
+    HashMap<String, HashSet<String>> tree = new HashMap<>();
+    String ceo = "";
+    for(String emp : map.keySet()){
+
+      String man = map.get(emp);
+
+      if(man.equals(emp)){
+        ceo = man;
+      }else{
+        if(tree.containsKey(man)){
+          HashSet<String> emplist = tree.get(man);
+          emplist.add(emp);
+        }else{
+          HashSet<String> emplist = new HashSet<>();
+          emplist.add(emp);
+          tree.put(man, emplist);
+        }
+      }
+    }
+
+    HashMap<String, Integer> result = new HashMap<>();
+    int ans = getResult(tree, result, ceo);
+
+    for(String man : result.keySet()){
+      System.out.println(man + " " + result.get(man));
+    }
+  }
+
+  static int getResult(HashMap<String, HashSet<String>> tree, HashMap<String, Integer> result, String root){
+    if(tree.containsKey(root) == false){
+      result.put(root, 0);
+      return 1;
+    }
+
+
+    int sz = 0;
+
+    for(String emps : tree.get(root)){
+      int ts = getResult(tree, result, emps);
+      sz += ts;
+    }
+
+    result.put(root, sz);
+    return sz+1;
+  }
+
+}

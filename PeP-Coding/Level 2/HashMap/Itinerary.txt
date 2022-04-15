@@ -1,0 +1,49 @@
+//https://nados.io/question/find-itinerary-from-tickets?zen=true
+
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int noofpairs_src_des = scn.nextInt();
+		HashMap<String, String> map = new HashMap<>();
+		for (int i = 0; i < noofpairs_src_des; i++) {
+			String s1 = scn.next();
+			String s2 = scn.next();
+			map.put(s1, s2);	
+		}
+
+		//write your code here
+
+		HashMap<String, Boolean> checkMap = new HashMap<>();
+		for(String src : map.keySet()){
+			if(checkMap.containsKey(src) == false){
+				checkMap.put(src, true);
+			}
+
+			if(checkMap.containsKey(map.get(src))){
+				checkMap.put(map.get(src), false);
+			}else{
+				checkMap.put(map.get(src), false);
+			}
+		}
+
+		String src = "";
+
+		for(String tsrc : checkMap.keySet()){
+			if(checkMap.get(tsrc) == true){
+				src = tsrc;
+			}
+		}
+		System.out.print(src + " -> ");
+		while(map.containsKey(src)){
+			if(map.containsKey(map.get(src)) == false){
+				System.out.print(map.get(src) + ".");
+				break;
+			}
+			System.out.print(map.get(src) + " -> ");
+			src = map.get(src);
+		}
+
+	}
+}
