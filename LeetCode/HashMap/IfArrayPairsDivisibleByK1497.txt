@@ -1,0 +1,47 @@
+//https://leetcode.com/problems/check-if-array-pairs-are-divisible-by-k/
+
+class Solution {
+    public boolean canArrange(int[] arr, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        for(int i = 0 ; i < arr.length ; i++){
+            int rem = arr[i]%k;
+            if(rem < 0){
+                rem += k;
+            }
+            map.put(rem, map.getOrDefault(rem, 0) + 1);
+        }
+        
+        for(int val : arr){
+            int rem = val%k;
+            if(rem < 0){
+                rem += k;
+            }
+            
+            if(rem == 0){
+                int zfq = map.get(rem);
+                if(zfq%2 != 0){
+                    return false;
+                }
+            }else{
+                if(rem*2 == k){
+                    int zfq = map.get(rem);
+                    if(zfq%2 != 0){
+                        return false;
+                    }
+                }else{
+                    int rfq = map.get(rem);
+                    if(map.containsKey(k-rem) == false){
+                        return false;
+                    }
+                    int krfq = map.get(k-rem);
+                    if(krfq != rfq){
+                        return false;
+                    }
+                }
+            }
+        }
+        
+        return true;
+    }
+}
