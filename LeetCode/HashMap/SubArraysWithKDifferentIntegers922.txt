@@ -1,0 +1,136 @@
+//https://leetcode.com/problems/subarrays-with-k-different-integers/
+
+class Solution {
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        if(k == 1){
+            int ans = 0;
+            int i = -1;
+            int j = -1;
+            HashMap<Integer, Integer> map = new HashMap<>();
+            
+            while(true){
+                boolean f1 = true;
+                boolean f2 = true;
+                
+                //aquire
+                while(i < nums.length - 1){
+                    f1 = false;
+                    i++;
+                    int n = nums[i];
+                    
+                    map.put(n, map.getOrDefault(n, 0) + 1);
+                    
+                    if(map.size() > 1){
+                        i--;
+                        map.remove(n);
+                        break;
+                    }
+                }
+                
+                //release
+                while(j < i){
+                    f2 = false;
+                    if(map.size() == 1){
+                        ans += i-j;
+                    }
+                    
+                    j++;
+                    int n = nums[j];
+                    
+                    if(map.get(n) == 1){
+                        map.remove(n);
+                    }else{
+                        map.put(n, map.get(n) - 1);
+                    }
+                    
+                    if(map.size() != 1){
+                        break;
+                    }
+                }
+                
+                if(f1 && f2){
+                    break;
+                }
+            }
+            
+            return ans;
+        }
+        
+        
+        HashMap<Integer, Integer> map1 = new HashMap<>();
+        HashMap<Integer, Integer> map2 = new HashMap<>();
+        int i1 = -1;
+        int i2 = -1;
+        int j = -1;
+        int ans = 0;
+        
+        while(true){
+            boolean f1 = true;
+            boolean f2 = true;
+            boolean f3 = true;
+            
+            //aquire big map2
+            while(i2 < nums.length - 1){
+                f1 = false;
+                i2++;
+                int n = nums[i2];
+                
+                map2.put(n, map2.getOrDefault(n, 0) + 1);
+                
+                if(map2.size() > k){
+                    i2--;
+                    map2.remove(n);
+                    break;
+                }
+            }
+            
+            //aquire in smol map2
+            while(i1 < i2){
+                f2 = false;
+                i1++;
+                int n = nums[i1];
+                
+                map1.put(n, map1.getOrDefault(n, 0) + 1);
+                
+                if(map1.size() > k-1){
+                    i1--;
+                    map1.remove(n);
+                    break;
+                }
+            }
+            
+            
+            //release in both
+            while(j < i1){
+                f3 = false;
+                if(map2.size() == k && map1.size() == k-1){
+                    ans += i2 - i1;
+                }
+                j++;
+                int n = nums[j];
+                
+                if(map2.get(n) == 1){
+                    map2.remove(n);
+                }else{
+                    map2.put(n, map2.get(n) - 1);
+                }
+                
+                if(map1.get(n) == 1){
+                    map1.remove(n);
+                }else{
+                    map1.put(n, map1.get(n) - 1);
+                }
+                
+                if(map1.size() != k-1 || map2.size() != k){
+                    break;
+                }
+            }
+            
+            if(f1 && f2 && f3){
+                break;
+            }
+        }
+        
+        return ans;
+    }
+}
