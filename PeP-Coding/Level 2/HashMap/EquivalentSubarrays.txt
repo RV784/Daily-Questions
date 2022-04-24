@@ -1,0 +1,70 @@
+//https://nados.io/question/equivalent-subarrays?zen=true
+
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0 ; i  < n; i++){
+            arr[i] = scn.nextInt();
+        }
+        int k = 0;
+        HashMap<Integer, Integer> map1 = new HashMap<>();
+        for(int val : arr){
+            map1.put(val, 1);
+        }
+		k = map1.size();
+        int i = -1;
+        int j = -1;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int ans = 0;
+
+        while(true){
+            boolean f1 = true;
+            boolean f2 = true;
+
+            //aquire
+            while(i < arr.length - 1){
+                f1 = false;
+                i++;
+                int n2 = arr[i];
+
+                map.put(n2, map.getOrDefault(n2, 0) + 1);
+
+                if(map.size() == k){
+                    break;
+                }
+            }
+
+            //release
+            while(j < i){
+                f2 = false;
+                j++;
+                if(map.size() == k){
+                    ans += arr.length - i;
+                }
+
+                int n1 = arr[j];
+                if(map.get(n1) == 1){
+                    map.remove(n1);
+                }else{
+                    map.put(n1, map.get(n1) - 1);
+                }
+
+                if(map.size() != k){
+                    break;
+                }
+            }
+
+            if(f1 && f2){
+                break;
+            }
+        }
+        System.out.println(ans);
+		
+	}
+
+
+}

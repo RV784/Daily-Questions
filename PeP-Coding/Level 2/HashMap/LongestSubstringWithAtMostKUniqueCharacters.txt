@@ -1,0 +1,66 @@
+//https://nados.io/question/longest-substring-with-at-most-k-unique-characters?zen=true
+
+
+import java.util.*;
+
+public class Main {
+
+	public static int solution(String str, int k) {
+		int i = -1;
+		int j = -1;
+		int ans = 0;
+		HashMap<Character, Integer> map = new HashMap<>();
+
+		while(true){
+			boolean f1 = true;
+			boolean f2 = true;
+
+			//aquire 
+			while(i < str.length() - 1){
+				f1 = false;
+				i++;
+				char ch = str.charAt(i);
+
+				map.put(ch, map.getOrDefault(ch, 0) + 1);
+
+				if(map.size() <= k){
+					ans = Math.max(ans, i-j);
+				}
+
+				if(map.size() > k){
+					break;
+				}
+			}
+
+			//release
+			while(j < i){
+				f2 = false;
+				j++;
+				char ch = str.charAt(j);
+
+				if(map.get(ch) == 1){
+					map.remove(ch);
+				}else{
+					map.put(ch, map.get(ch) - 1);
+				}
+
+				if(map.size() == k){
+					ans = Math.max(ans, i-j);
+					break;
+				}
+			}
+			if(f1 && f2){
+				break;
+			}
+		}
+		return ans;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+        String str = scn.next();
+        int k = scn.nextInt();
+		System.out.println(solution(str,k));
+	}
+
+}

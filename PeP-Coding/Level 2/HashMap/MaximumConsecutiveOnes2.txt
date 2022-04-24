@@ -1,0 +1,80 @@
+//https://nados.io/question/maximum-consecutive-ones-2?zen=true
+
+import java.util.*;
+
+public class Main {
+
+    public static int solution(int[] nums, int k) {
+        boolean f3 = true;
+        for(int val : nums){
+            if(val == 0){
+                f3 = false;
+            }
+        }
+        if(f3){
+            return nums.length;
+        }
+        
+        int i = -1;
+        int j = -1;
+        int ans = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        while(true){
+            boolean f1 = true;
+            boolean f2 = true;
+            
+            //aquire
+            while(i < nums.length - 1){
+                f1 = false;
+                i++;
+                int n = nums[i];
+                
+                map.put(n, map.getOrDefault(n, 0) + 1);
+                
+                if(map.getOrDefault(0, 0) <= k){
+                    ans = Math.max(i-j, ans);
+                }
+                
+                if(map.getOrDefault(0, 0) > k){
+                    break;
+                }
+            }
+            
+            //release
+            while(j < i){
+                f2 = false;
+                j++;
+                int n = nums[j];
+                
+                if(map.get(n) == 1){
+                    map.remove(n);
+                }else{
+                    map.put(n, map.get(n) - 1);
+                }
+                
+                if(map.getOrDefault(0, 0) <= k){
+                    ans = Math.max(ans, i-j);
+                    break;
+                }
+            }
+            
+            if(f1 && f2){
+                break;
+            }
+        }
+        return ans;
+    }
+    
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0 ; i  < n; i++){
+            arr[i] = scn.nextInt();
+        }
+        int k = scn.nextInt();
+        System.out.println(solution(arr,k));
+	}
+
+}
