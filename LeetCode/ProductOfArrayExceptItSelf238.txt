@@ -1,0 +1,49 @@
+//https://leetcode.com/problems/product-of-array-except-self/
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int cz = 0;
+        for(int val : nums){
+            if(val == 0){
+                cz++;
+            }
+        }
+        
+        if(cz == 1){
+            int[] ans = new int[nums.length];
+            int compare = 1;
+            for(int val : nums){
+                compare = compare*val;
+            }
+            int compare2 = 1;
+            for(int val : nums){
+                if(val != 0){
+                    compare2 = compare2*val;
+                }
+            }
+            for(int i = 0 ; i < nums.length ; i++){
+                if(nums[i] == 0){
+                    ans[i] = compare2;
+                    continue;
+                }
+                ans[i] = compare/nums[i];
+            }
+            return ans;
+        }
+        
+        if(cz > 1){
+            int[] ans = new int[nums.length];
+            return ans;
+        }
+        
+        int[] ans = new int[nums.length];
+        int compare = 1;
+        for(int val : nums){
+            compare = compare*val;
+        }
+        for(int i = 0 ; i < nums.length ; i++){
+            ans[i] = compare/nums[i];
+        }
+        return ans;
+    }
+}
