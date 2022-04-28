@@ -1,0 +1,43 @@
+https://nados.io/question/count-of-subarrays-with-sum-divisible-by-k?zen=true
+
+import java.util.*;
+
+public class Main {
+
+    public static int solution(int[] nums, int k)  {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        int i = -1;
+        int sum = 0;
+        int count = 0;
+        map.put(0, 1);
+        while(i < nums.length - 1){
+            i++;
+            
+            sum += nums[i];
+            int rem = sum%k;
+            if(rem < 0){
+                rem = rem + k;
+            }
+            
+            if(map.containsKey(rem)){
+                count += map.get(rem);
+            }
+            map.put(rem, map.getOrDefault(rem, 0) + 1);
+        }
+        
+        return count;
+    }
+    
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scn.nextInt();
+        }
+        int k = scn.nextInt();
+        System.out.println(solution(arr, k));
+    }
+
+}

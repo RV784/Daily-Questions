@@ -1,0 +1,60 @@
+//https://nados.io/question/count-of-subarrays-with-equal-number-of-0s-1s-and-2s?zen=true
+
+import java.util.*;
+
+public class Main {
+
+    public static String keyGen(long c1c0, long c2c1){
+        String res = c1c0 + "#" + c2c1;
+        return res;
+    }
+
+    public static long solution(int[] arr) { 
+        // code here
+        
+        int i = -1;
+        long c0 = 0;
+        long c1 = 0;
+        long c2 = 0;
+        long count = 0;
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("0#0", 1);
+        while(i < arr.length -1){
+            i++;
+            int ch = arr[i];
+            
+            if(ch == 0){
+                c0++;
+            }
+            if(ch == 1){
+                c1++;
+            }
+            if(ch == 2){
+                c2++;
+            }
+            
+            long c1c0 = c1 - c0;
+            long c2c1 = c2 - c1;
+            
+            String key = keyGen(c1c0, c2c1);
+            
+            if(map.containsKey(key)){
+                count += map.get(key);
+            }
+            
+            map.put(key, map.getOrDefault(key, 0) + 1);
+        }
+        return count;
+    }
+    
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scn.nextInt();
+        }
+        System.out.println(solution(arr));
+    }
+
+}

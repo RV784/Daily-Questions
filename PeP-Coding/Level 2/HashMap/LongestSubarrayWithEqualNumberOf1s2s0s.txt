@@ -1,0 +1,58 @@
+//https://nados.io/question/longest-subarray-with-equal-number-of-0s-1s-and-2s?zen=true
+
+import java.util.*;
+
+public class Main {
+
+    public static String keyGen(int c1c0, int c2c1){
+        String res = c1c0 + "#" + c2c1;
+        // System.out.println(res);
+        return res;
+    }
+
+    public static int solution(int[] arr) {
+        
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("0#0", -1);
+        int i = -1;
+        int c0 = 0;
+        int c1 = 0;
+        int c2 = 0;
+        int len = 0;
+        while(i < arr.length - 1){
+            i++;
+            if(arr[i] == 0){
+                c0++;
+            }
+            if(arr[i] == 1){
+                c1++;
+            }
+            if(arr[i] == 2){
+                c2++;
+            }
+            int c1c0 = c1 - c0;
+            int c2c1 = c2 - c1;
+
+            String key = keyGen(c1c0, c2c1);
+
+            if(map.containsKey(key)){
+                len = Math.max(len, i - map.get(key));
+            }else{
+                map.put(key, i);
+            }
+        }
+
+        return len;
+    }
+    
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scn.nextInt();
+        }
+        System.out.println(solution(arr));
+    }
+
+}

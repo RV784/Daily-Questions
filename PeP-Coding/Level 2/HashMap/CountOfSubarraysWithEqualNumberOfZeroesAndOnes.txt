@@ -1,0 +1,44 @@
+
+//https://nados.io/question/count-of-subarrays-with-equal-number-of-zeroes-and-ones?zen=true
+import java.util.*;
+
+public class Main {
+
+    public static int solution(int[] arr) {
+        int[] nums = new int[arr.length];
+        for(int i = 0 ; i < arr.length ; i++){
+            if(arr[i] == 0){
+                nums[i] = -1;
+            }else{
+                nums[i] = arr[i];
+            }
+        }
+
+        int i = -1;
+        int count = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        int sum = 0;
+        while(i < nums.length - 1){
+            i++;
+
+            sum += nums[i];
+            if(map.containsKey(sum)){
+                count += map.get(sum);
+            }
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+
+        return count;
+    }
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scn.nextInt();
+        }
+        System.out.println(solution(arr));
+    }
+
+}
