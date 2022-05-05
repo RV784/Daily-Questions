@@ -1,0 +1,43 @@
+
+
+import java.util.*;
+
+public class Main {
+	
+    public static void completeTask(int n, int m, int[] arr) {
+		// write your code here
+		HashMap<Integer, Integer> map = new HashMap<>();
+		for(int val : arr){
+			map.put(val, 1);
+		}
+		int[] array = new int[n-m];
+		int j = 0;
+		for(int i = 0 ; i < n ; i++){
+			if(map.containsKey(i+1) == false){
+				array[j] = i+1;
+				j++;
+			}
+		}
+
+		for(int i = 0 ; i < array.length ; i = i+2){
+			System.out.print(array[i] + " ");
+		}
+		System.out.println();
+		for(int i = 1 ; i < array.length ; i = i+2){
+			System.out.print(array[i] + " ");
+		}
+
+	}
+
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int n = scn.nextInt();
+		int m = scn.nextInt();
+		int[] num = new int[m];
+		for (int i = 0; i < m; i++) {
+			num[i] = scn.nextInt();
+		}
+		completeTask(n, m, num);
+	}
+
+}
