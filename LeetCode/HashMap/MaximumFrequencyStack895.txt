@@ -1,0 +1,45 @@
+//https://leetcode.com/problems/maximum-frequency-stack/
+
+class FreqStack {
+    
+    HashMap<Integer, LinkedList<Integer>> st;
+    HashMap<Integer, Integer> fmap;
+    int maxf;
+    public FreqStack() {
+        st = new HashMap<>();
+        fmap = new HashMap<>();
+        maxf = 0;
+    }
+    
+    public void push(int val) {
+        int cfr = fmap.getOrDefault(val, 0);
+        cfr++;
+        fmap.put(val, cfr);
+        
+        if(st.containsKey(cfr) == false){
+            st.put(cfr, new LinkedList<Integer>());
+        }
+        
+        st.get(cfr).addFirst(val);
+        maxf = Math.max(maxf, cfr);
+    }
+    
+    public int pop() {
+        int ans = st.get(maxf).removeFirst();
+        int cfr = fmap.get(ans);
+        cfr--;
+        fmap.put(ans, cfr);
+        
+        if(st.get(maxf).size() == 0){
+            maxf--;
+        }
+        return ans;
+    }
+}
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack obj = new FreqStack();
+ * obj.push(val);
+ * int param_2 = obj.pop();
+ */

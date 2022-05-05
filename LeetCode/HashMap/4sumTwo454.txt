@@ -1,0 +1,38 @@
+//https://leetcode.com/problems/4sum-ii/
+
+class Solution {
+    public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+        int n = nums1.length;
+        int[][] ab = new int[n][n];
+        int[][] cd = new int[n][n];
+        
+        HashMap<Integer, Integer> map1 = new HashMap<>();
+        for(int i = 0 ; i < n ; i++){
+            for(int j = 0 ; j < n ; j++){
+                int val = nums1[i] + nums2[j];
+                map1.put(val, map1.getOrDefault(val, 0) + 1);
+                ab[i][j] = val;
+            }
+        }
+        HashMap<Integer, Integer> map2 = new HashMap<>();
+        for(int i = 0 ; i < n ; i++){
+            for(int j = 0 ; j < n ; j++){
+                int val = nums3[i] + nums4[j];
+                cd[i][j] = val;
+                map2.put(val, 1);
+            }
+        }
+        
+        int count = 0;
+        
+        for(int i = 0 ; i < n ; i++){
+            for(int j = 0 ; j < n ; j++){
+                int val = cd[i][j];
+                if(map1.containsKey((-1)*val)){
+                    count += map1.get((-1)*val);
+                }
+            }
+        }
+        return count;
+    }
+}

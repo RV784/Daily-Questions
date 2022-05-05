@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/subdomain-visit-count/
+
+class Solution {
+    public List<String> subdomainVisits(String[] cpdomains) {
+		// write your code here
+		HashMap<String, Integer> map = new HashMap<>();
+		List<String> res = new ArrayList<>();
+
+		for(String str : cpdomains){
+			String[] num = str.split("\\s+");
+            int count = Integer.parseInt(num[0]);
+			for(int i = num[1].length() - 1 ; i >= 0 ; i--){
+                if(i == 0){
+                    String domain = num[1].substring(i, num[1].length());
+					map.put(domain, map.getOrDefault(domain, 0) + count);
+                }
+				if(num[1].charAt(i) == '.'){
+					String domain = num[1].substring(i+1, num[1].length());
+					map.put(domain, map.getOrDefault(domain, 0) + count);
+				}
+			}
+		}
+
+		for(String key : map.keySet()){
+			String str = map.get(key) + " " + key;
+			res.add(str);
+		}
+
+		return res;
+	}
+}

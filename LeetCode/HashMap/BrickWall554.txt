@@ -1,0 +1,24 @@
+//https://leetcode.com/problems/brick-wall/
+
+class Solution {
+    public int leastBricks(List<List<Integer>> wall) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int len = wall.size();
+        for(List<Integer> lst: wall){
+            int prsum = 0;
+            // len = lst.size();
+            for(int i = 0 ; i < lst.size() - 1 ; i++){
+                int val = lst.get(i);
+                prsum += val;
+                map.put(prsum, map.getOrDefault(prsum, 0) + 1);
+            }
+        }
+        
+        int maxAns = 0;
+        for(int key : map.keySet()){
+            maxAns = Math.max(maxAns, map.get(key));
+        }
+        
+        return len - maxAns;
+    }
+}
