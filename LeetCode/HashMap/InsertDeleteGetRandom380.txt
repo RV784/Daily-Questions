@@ -1,0 +1,43 @@
+
+
+class RandomizedSet {
+    private int cnt;
+    private Map<Integer, Integer> m;
+    private List<Integer> l;
+    private java.util.Random rand; //this util
+
+    /** Initialize your data structure here. */
+    public RandomizedSet() {
+        cnt = 0;
+        m = new HashMap<>();
+        l = new ArrayList<>();
+        rand = new java.util.Random();
+    }
+    
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    public boolean insert(int val) {
+        if(m.containsKey(val)) return false;
+        cnt++;
+        l.add(val);
+        m.put(val, cnt - 1);
+        return true;
+    }
+    
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    public boolean remove(int val) {
+        if (!m.containsKey(val)) return false;
+        int i = m.get(val);
+        int last = l.get(cnt - 1);
+        l.set(i, last);
+        m.put(last, i);
+        m.remove(val);
+        l.remove(cnt - 1);
+        cnt--;
+        return true;
+    }
+    
+    /** Get a random element from the set. */
+    public int getRandom() {
+        return l.get(rand.nextInt(cnt));  //Random() nextInt
+    }
+}

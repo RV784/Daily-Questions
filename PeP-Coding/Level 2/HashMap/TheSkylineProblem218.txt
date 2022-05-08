@@ -1,0 +1,60 @@
+//https://leetcode.com/problems/the-skyline-problem/
+
+class Solution {
+    public class Pair implements Comparable<Pair>{
+        int x;
+        int ht;
+        
+        Pair(int x, int ht){
+            this.x = x;
+            this.ht = ht;
+        }
+        
+        // @override
+        public int compareTo(Pair o){
+            if(this.x != o.x){
+                return this.x - o.x;
+            }else{
+                return this.ht - o.ht;
+            }
+        }
+    }
+    public List<List<Integer>> getSkyline(int[][] buildings) {
+        List<Pair> list = new ArrayList<>();
+        
+        for(int i = 0 ; i < buildings.length ; i++){
+            int sp = buildings[i][0];
+            int ep = buildings[i][1];
+            int ht = buildings[i][2];
+            list.add(new Pair(sp, -1*ht));
+            list.add(new Pair(ep, ht));
+        }
+        
+        Collections.sort(list);
+        
+        List<List<Integer>> ans = new ArrayList<>();
+        PriorityQueue<Integer> que = new PriorityQueue<>(Collections.reverseOrder());
+        
+        int cht = 0;
+        que.add(0);
+        for(int i = 0 ; i < list.size() ; i++){
+            int x = list.get(i).x;
+            int ht = list.get(i).ht;
+            
+            if(ht < 0){
+                que.add(-1*ht);
+            }else{
+                que.remove(ht);
+            }
+            
+            if(cht != que.peek()){
+                List<Integer> temp = new ArrayList<>();
+                temp.add(x);
+                temp.add(que.peek());
+                ans.add(temp);
+                cht = que.peek();
+            }
+        }
+        return ans;
+    }
+}
