@@ -1,0 +1,52 @@
+
+import java.util.*;
+ 
+ public class Main {
+ 
+     public static List<String> grayCode(int n) {
+ 	 //Write your code here
+      if(n == 0){
+          List<String> bres = new ArrayList<>();
+          bres.add("0");
+          return bres;
+      }
+      if(n == 1){
+          List<String> bres = new ArrayList<>();
+          bres.add("0");
+          bres.add("1");
+          return bres;
+      }
+
+      List<String> pres = grayCode(n-1);
+      List<String> mres = new ArrayList<>();
+      for(int i = 0 ; i < pres.size() ; i++){
+          String str = pres.get(i);
+          mres.add("0" + str);
+      }
+
+      for(int i = pres.size() - 1 ; i >= 0 ; i--){
+          String str = pres.get(i);
+          mres.add("1" + str);
+      }
+
+      return mres;
+     }
+
+     public static List<Integer> finalAns(List<String> res){
+         List<Integer> ans = new ArrayList<>();
+         for(int i = 0 ; i < res.size() ; i++){
+             int temp = Integer.parseInt(res.get(i), 2);
+             ans.add(temp);
+         }
+
+         return ans;
+     }
+ 
+     public static void main(String[] args) {
+         Scanner scn = new Scanner(System.in);
+         List<String> ans=grayCode(scn.nextInt());
+         List<Integer> ans2 = finalAns(ans);
+         Collections.sort(ans2);
+         System.out.println(ans2);
+     }
+ }
