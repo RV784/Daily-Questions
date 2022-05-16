@@ -1,0 +1,25 @@
+
+
+class Solution {
+    public int singleNumber(int[] arr) {
+         int tn = -1, tnp1 = 0, tnp2 = 0;
+   
+   for(int i = 0 ; i < arr.length ; i++){
+     int val = arr[i];
+     int cn = (val & tn);
+     int cnp1 = (val & tnp1);
+     int cpn2 = (val & tnp2);
+
+     tn = tn & (~cn);
+     tnp1 = tnp1 | cn;
+
+     tnp1 = tnp1 & (~cnp1);
+     tnp2 = tnp2 | cnp1;
+
+     tnp2 = tnp2 & ~(cpn2);
+     tn = tn | cpn2;
+   }
+
+   return tnp1;
+    }
+}
