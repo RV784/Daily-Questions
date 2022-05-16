@@ -1,0 +1,42 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args){
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    int[] arr = new int[n];
+    for(int i = 0 ; i < n; i++){
+      arr[i] = scn.nextInt();
+    }
+    solution(arr);
+  }
+
+  public static void solution(int[] arr){
+   //write your code here
+   int tn = Integer.MAX_VALUE, tnp1 = 0, tnp2 = 0;
+   
+   for(int i = 0 ; i < arr.length ; i++){
+     int val = arr[i];
+     int cn = (val & tn);
+     int cnp1 = (val & tnp1);
+     int cpn2 = (val & tnp2);
+
+     tn = tn & (~cn);
+     tnp1 = tnp1 | cn;
+
+     tnp1 = tnp1 & (~cnp1);
+     tnp2 = tnp2 | cnp1;
+
+     tnp2 = tnp2 & ~(cpn2);
+     tn = tn | cpn2;
+   }
+
+   System.out.println(tnp1);
+  }
+
+}
+
+bits ko likhlo harr number ki ek k neeche.
+frequency on 1s in each column if not divisible by 3 ? then the future ans will have that bit on
