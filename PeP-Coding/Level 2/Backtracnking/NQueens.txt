@@ -1,0 +1,40 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  static void solve(boolean[][] board, int row, boolean[] col, boolean[] nd, boolean[] rd, String ans){
+    if(row == board.length){
+      System.out.println(ans + ".");
+      return;
+    }
+
+    for(int cols = 0 ; cols < board[0].length ; cols++){
+      if(col[cols] == false && nd[row+cols] == false && rd[row - cols + board.length - 1] == false){
+        board[row][cols] = true;
+        col[cols] = true;
+        nd[row + cols] = true;
+        rd[row - cols + board.length - 1] = true;
+        solve(board, row+1, col, nd, rd, ans + row + "-" + cols + ", ");
+        board[row][cols] = false;
+        col[cols] = false;
+        nd[row+cols] = false;
+        rd[row - cols + board.length - 1] = false;
+      }
+    }
+  }
+
+  public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    boolean[][] board = new boolean[n][n];
+    //write your code here
+
+    boolean[] col = new boolean[n];
+    boolean[] nd = new boolean[2*n-1];
+    boolean[] rd = new boolean[2*n-1];
+
+    solve(board, 0, col, nd, rd, "");    
+  }
+
+}
