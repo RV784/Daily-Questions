@@ -1,0 +1,27 @@
+class Solution {
+    public List<String> ans = new ArrayList<>();
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        HashMap<String, Integer> map = new HashMap<>();
+        for(String str :  wordDict){
+            map.put(str, 1);
+        }
+        
+        solution(s, map, "");
+        return ans;
+    }
+    
+    public void solution(String s, HashMap<String, Integer> map, String smolans){
+        if(s.length() == 0){
+            ans.add(smolans.substring(0, smolans.length()-1));
+            return;
+        }
+        
+        for(int i = 0 ; i < s.length() ; i++){
+            String lef = s.substring(0, i+1);
+            if(map.containsKey(lef)){
+                String right = s.substring(i+1);
+                solution(right, map, smolans + lef + " ");
+            }
+        }
+    }
+}
