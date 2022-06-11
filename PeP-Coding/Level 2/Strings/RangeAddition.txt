@@ -1,0 +1,67 @@
+import java.util.*;
+ 
+ public class Main {
+ 
+     // This is a functional problem. You have to complete this function.
+     // It takes as input a length and a 2D array of update operations.
+     // It should return the modified array.
+     public static int[] Range(int length, int[][] updates) {
+         // write your code here. 
+
+         int[] ans = new int[length];
+
+         for(int i = 0 ; i < updates.length ; i++){
+             int st = updates[i][0];
+             int ed = updates[i][1];
+             int icr = updates[i][2];
+
+             ans[st] = ans[st] + icr;
+             if(ed+1 >= ans.length){
+                 continue;
+             }
+             ans[ed+1] = ans[ed+1] + (-1*icr);
+         }
+
+         int sum = 0;
+         sum += ans[0];
+         ans[0] = sum;
+
+         for(int i = 1 ; i < ans.length ; i++){
+             ans[i] = ans[i] + ans[i-1];
+         }
+
+         return ans;
+         
+     }
+ 
+     public static void main(String[] args) {
+         Scanner sc = new Scanner(System.in);
+ 
+         // Input for length of first array.
+         int length = sc.nextInt();
+ 
+         int K = sc.nextInt();
+ 
+         int[][] updates = new int[K][3];
+ 
+         for (int i = 0; i < updates.length; i++) {
+             for (int j = 0; j < updates[0].length; j++) {
+                 updates[i][j] = sc.nextInt();
+             }
+         }
+ 
+         int[] result = Range(length, updates);
+         display(result);
+     }
+ 
+     // function to display an array.
+     public static void display(int[] arr) {
+ 
+         for (int i = 0; i < arr.length; i++) {
+             System.out.print(arr[i] + " ");
+         }
+ 
+         System.out.println();
+     }
+ 
+ }

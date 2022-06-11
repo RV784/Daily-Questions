@@ -1,0 +1,28 @@
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int s = 0;
+        int e = nums.length - 1;
+        for(int i = 0 ; i < nums.length ; i++){
+            nums[i] = nums[i]*nums[i];
+        }
+        int[] res = new int[nums.length];
+        int j = nums.length - 1;
+        while(s <= e){
+            // nums[s] = nums[s]*nums[s];
+            // nums[e] = nums[e]*nums[e];
+            
+            if(nums[s] > nums[e]){
+                res[j] = nums[s];
+                s++;
+                j--;
+            }else{
+                res[j] = nums[e];
+                e--;
+                j--;
+            }
+            
+        }
+        
+        return res;
+    }
+}
