@@ -1,0 +1,66 @@
+import java.util.*;
+
+public class Main {
+    
+    //~~~~~~~~~~~~~~~~~User Section~~~~~~~~~~~~~~~
+    public static int[] productExceptSelf(int[] arr) {
+        // write your code here
+        int cz = 0;
+        for(int val : arr){
+            if(val == 0){
+                cz++;
+            }
+        }
+
+        if(cz == 1){
+            int compare = 1;
+            for(int val : arr){
+                if(val == 0){
+                    continue;
+                }else{
+                    compare = compare*val;
+                }
+            }
+
+            int[] ans = new int[arr.length];
+            for(int i = 0 ; i < arr.length ; i++){
+                if(arr[i] == 0){
+                    ans[i] = compare;
+                    break;
+                }
+            }
+            return ans;
+        }
+
+        if(cz > 1){
+            int[] ans = new int[arr.length];
+            return ans;
+        }
+
+        int[] ans = new int[arr.length];
+        int compare = 1;
+        for(int val : arr){
+            compare = compare*val;
+        }
+
+        for(int i = 0 ; i < arr.length ; i++){
+            ans[i] = compare/arr[i];
+        }
+
+        return ans;
+    }
+
+    //~~~~~~~~~~~~~~~~~Input Management~~~~~~~~~~~~~~~
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0; i < n; i++) {
+            arr[i] = scn.nextInt();
+        }
+        int[] res = productExceptSelf(arr);
+        for(int i = 0; i < arr.length; i++) {
+            System.out.print(res[i] + " ");
+        }
+    }
+}
