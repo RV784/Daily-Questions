@@ -1,0 +1,91 @@
+class Solution {
+    public int maximumProduct(int[] nums) {
+        if(nums.length == 3){
+            int mx = 1;
+            for(int val : nums){
+                mx = mx*val;
+            }
+            
+            return mx;
+        }
+        int countneg = 0;
+        for(int val : nums){
+            if(val < 0){
+                countneg++;
+            }
+        }
+        
+        if(countneg == 0 || countneg == 1){
+            int mx1 = Integer.MIN_VALUE;
+            int mx2 = Integer.MIN_VALUE ;
+            int mx3 = Integer.MIN_VALUE;
+            
+            for(int i = 0 ; i < nums.length ; i++){
+                mx1 = Math.max(mx1, nums[i]);
+            }
+            boolean flag = true;
+            for(int i = 0 ; i < nums.length ; i++){
+                if(nums[i] == mx1 && flag){
+                    flag = false;
+                    continue;
+                }
+                
+                mx2 = Math.max(mx2, nums[i]);
+            }
+            flag = true;
+            for(int i = 0 ; i < nums.length ; i++){
+                if(nums[i] == mx2 && flag){
+                    flag = false;
+                    continue;
+                }
+                mx3 = Math.max(mx3, nums[i]);
+            }
+            return mx1*mx2*mx3;
+        }
+        
+            int mx1 = Integer.MIN_VALUE;
+            int mx2 = Integer.MIN_VALUE ;
+            int mx3 = Integer.MIN_VALUE;
+            
+            for(int i = 0 ; i < nums.length ; i++){
+                mx1 = Math.max(mx1, nums[i]);
+            }
+            boolean flag = true;
+            for(int i = 0 ; i < nums.length ; i++){
+                if(nums[i] == mx1 && flag){
+                    flag = false;
+                    continue;
+                }
+                
+                mx2 = Math.max(mx2, nums[i]);
+            }
+            flag = true;
+            for(int i = 0 ; i < nums.length ; i++){
+                if(nums[i] == mx2 && flag){
+                    flag = false;
+                    continue;
+                }
+                mx3 = Math.max(mx3, nums[i]);
+            }
+        
+        
+            int nmx1 = Integer.MAX_VALUE;
+            int nmx2 = Integer.MAX_VALUE;
+        
+        for(int i = 0 ; i< nums.length ; i++){
+            nmx1 = Math.min(nums[i], nmx1);
+        }
+        
+        flag = true;
+        for(int i = 0 ; i < nums.length ; i++){
+            if(nums[i] == nmx1 && flag){
+                flag = false;
+                continue;
+            }
+            nmx2 = Math.min(nmx2, nums[i]);
+        }
+        
+        int ans = Math.max((nmx1*nmx2*mx1), (mx1*mx2*mx3));
+        return ans;
+    }
+}
