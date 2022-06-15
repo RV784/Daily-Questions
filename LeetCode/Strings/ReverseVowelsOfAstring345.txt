@@ -1,0 +1,39 @@
+class Solution {
+    public String reverseVowels(String s) {
+        ArrayList<Integer> idx = new ArrayList<>();
+        HashMap<Character, Integer> map = new HashMap<>();
+        map.put('a', 1);
+        map.put('e', 1);
+        map.put('i', 1);
+        map.put('o', 1);
+        map.put('u', 1);
+        map.put('A', 1);
+        map.put('E', 1);
+        map.put('I', 1);
+        map.put('O', 1);
+        map.put('U', 1);
+        for(int i = 0 ; i < s.length() ; i++){
+            if(map.containsKey(s.charAt(i))){
+                idx.add(i);
+            }
+        }
+        // if(idx.size() == s.length()){
+        //     return s;
+        // }
+        int st = 0;
+        int e = idx.size() - 1;
+        StringBuilder sb = new StringBuilder();
+        sb.append(s);
+        while(st < e){
+            int start = idx.get(st);
+            int end = idx.get(e);
+            sb.setCharAt(start, s.charAt(end));
+            sb.setCharAt(end, s.charAt(start));
+            
+            st++;
+            e--;
+        }
+        
+        return sb.toString();
+    }
+}
