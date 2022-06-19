@@ -1,0 +1,41 @@
+class Solution {
+    public int maximumSwap(int num) {
+        String nm = String.valueOf(num);
+        char[] arr = nm.toCharArray();
+        
+        int[] li = new int[10];
+        
+        for(int i = 0 ; i < arr.length ; i++){
+            int digit = arr[i]-'0';
+            li[digit] = i;
+        }
+        
+        boolean flag = false;
+        for(int i = 0 ; i < arr.length ; i++){
+            int digit = arr[i]-'0';
+            for(int j = 9 ; j > digit ; j--){
+                if(i < li[j]){
+                    flag = true;
+                    swap(arr, i, li[j]);
+                    break;
+                }
+            }
+            if(flag){
+                break;
+            }
+        }
+        
+        String ans = "";
+        for(int i = 0 ; i < arr.length ; i++){
+            ans += arr[i];
+        }
+        
+        return Integer.parseInt(ans);
+    }
+    
+    public void swap(char[] arr, int i, int j){
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}

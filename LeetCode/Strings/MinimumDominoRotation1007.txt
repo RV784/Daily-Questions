@@ -1,0 +1,106 @@
+class Solution {
+    public int minDominoRotations(int[] tops, int[] bottoms) {
+        int val1 = 10;
+        int val2 = 10;
+        
+        for(int i = 0 ; i < tops.length ; i++){
+            if(tops[i] != bottoms[i]){
+                val1 = tops[i];
+                val2 = bottoms[i];
+                break;
+            }
+        }
+        if(val1 == 10){
+            return 0;
+        }
+        int ans = Integer.MAX_VALUE;
+        boolean flag = false;
+        int count = 0;
+        
+        
+        for(int i = 0 ; i < tops.length ; i++){
+            if(tops[i] != val1){
+                if(bottoms[i] == val1){
+                    count++;
+                    continue;
+                }else{
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        if(flag){
+            count = 0;
+        }else{
+            ans = Math.min(ans, count);
+        }
+        count = 0;
+        flag = false;
+        
+        //////
+        
+        for(int i = 0 ; i < bottoms.length ; i++){
+            if(bottoms[i] != val1){
+                if(tops[i] == val1){
+                    count++;
+                    continue;
+                }else{
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        if(flag){
+            count = 0;
+        }else{
+            ans = Math.min(ans, count);
+        }
+        count = 0;
+        flag = false;
+        
+        ///  
+        
+        for(int i = 0 ; i < tops.length ; i++){
+            if(tops[i] != val2){
+                if(bottoms[i] == val2){
+                    count++;
+                    continue;
+                }else{
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        if(flag){
+            count = 0;
+        }else{
+            ans = Math.min(ans, count);
+        }
+        count = 0;
+        flag = false;
+        
+        //////
+        
+        for(int i = 0 ; i < bottoms.length ; i++){
+            if(bottoms[i] != val2){
+                if(tops[i] == val2){
+                    count++;
+                    continue;
+                }else{
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        if(flag){
+            count = 0;
+        }else{
+            ans = Math.min(ans, count);
+        }
+        count = 0;
+        if(ans > tops.length){
+            return -1;
+        }
+        return ans;
+    }
+}
